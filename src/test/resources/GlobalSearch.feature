@@ -14,3 +14,7 @@ Feature: Global Search on Landing Page
     Given User is on landing page
     When User enters "N82E16814487418" on the global search bar
     Then Product Page should be displayed
+    #And Following details should be present:
+    #| N82E16814487418 |
+    #| RTX 2080 Ti     |
+    #| 11G-P4-2281-KR  |

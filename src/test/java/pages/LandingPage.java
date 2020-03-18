@@ -24,13 +24,6 @@ public class LandingPage extends PageObject {
         return selectCountryPopUp;
     }
 
-//    public SearchResultsPage searchFor(String searchTerm) {
-//        searchBox.sendKeys(searchTerm);
-//        logger.debug("Search term used: {}", searchTerm);
-//        searchBox.sendKeys(Keys.ENTER);
-//        return new SearchResultsPage(driver);
-//    }
-
     public PageObject searchFor(String searchTerm) {
         searchBox.sendKeys(searchTerm);
         logger.debug("Search term used: {}", searchTerm);

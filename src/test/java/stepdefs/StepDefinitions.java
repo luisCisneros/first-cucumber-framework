@@ -16,14 +16,14 @@ public class StepDefinitions {
     private WebDriver driver;
     private WebDriverManager webDriverManager;
     private LandingPage landingPage;
-    private PageObject searchResults;
+    private PageObject searchResultsOrProductPage;
 
     private String searchTerm;
 
     @Given("User is on landing page")
     public void userIsOnLandingPage() {
         webDriverManager = new WebDriverManager();
-        driver = webDriverManager.setUpDriver(driver);
+        driver = webDriverManager.setUpDriver();
         driver.get(webDriverManager.getUrl());
     }
 
@@ -31,18 +31,18 @@ public class StepDefinitions {
     public void userEntersOnTheGlobalSearchBar(String searchTerm) {
         this.searchTerm = searchTerm;
         landingPage = new LandingPage(driver);
-        searchResults = landingPage.searchFor(searchTerm);
+        searchResultsOrProductPage = landingPage.searchFor(searchTerm);
     }
 
     @Then("At least one result should be shown on Results Page")
     public void resultsShouldBeShownOnResultsPage() {
-        SearchResultsPage searchResultsPage = (SearchResultsPage) searchResults;
+        SearchResultsPage searchResultsPage = (SearchResultsPage) searchResultsOrProductPage;
         Assert.assertTrue(searchResultsPage.numberOfSearchResultsOnPage() > 1);
     }
 
     @Then("Product Page should be displayed")
     public void productPageShouldBeDisplayed() {
-        ProductPage productPage = (ProductPage) searchResults;
+        ProductPage productPage = (ProductPage) searchResultsOrProductPage;
         Assert.assertEquals(searchTerm, productPage.getItemNumber());
     }
 }

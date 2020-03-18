@@ -20,7 +20,8 @@ public class WebDriverManager {
         return url;
     }
 
-    public WebDriver setUpDriver(WebDriver driver) { // Considerar declarar WebDriver dentro del metodo en lugar de recibirlo como parametro
+    public WebDriver setUpDriver() {
+        WebDriver driver;
         String propertiesPath = "src/test/resources/config.properties";
         logger.info("Properties file located at: {}", propertiesPath);
         Properties properties = new Properties();
@@ -46,6 +47,11 @@ public class WebDriverManager {
             case "firefox":
                 System.setProperty("webdriver.gecko.driver", firefoxDriverLocation);
                 driver = new FirefoxDriver();
+                break;
+            default:
+                System.setProperty("webdriver.chrome.driver", chromeDriverLocation);
+                driver = new ChromeDriver();
+                logger.info("Browser was not provided. Proceeding with Chrome");
                 break;
         }
         logger.info("{} browser will be used for testing", browser);

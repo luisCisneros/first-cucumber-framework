@@ -35,9 +35,14 @@ public class LandingPage extends PageObject {
     }
 
     public void selectCountryOnPopUp() {
-        WebElement stayAtButton = selectCountryPopUp.findElement(By.xpath("//button[@class='btn forchangecounrtypopup'][contains(text(),'Stay at United States')]"));
-        JavascriptExecutor executor = (JavascriptExecutor) driver;
-        executor.executeScript("arguments[0].click();", stayAtButton);
-        logger.debug("Clicked on Stay at button");
+        if (selectCountryPopUp.isDisplayed()) {
+            logger.debug("Select country popup is displayed");
+            WebElement stayAtButton = selectCountryPopUp.findElement(By.xpath("//button[@class='btn forchangecounrtypopup'][contains(text(),'Stay at United States')]"));
+            JavascriptExecutor executor = (JavascriptExecutor) driver;
+            executor.executeScript("arguments[0].click();", stayAtButton);
+            logger.debug("Clicked on Stay at button on popup");
+            return;
+        }
+        logger.debug("Select country popup is not displayed");
     }
 }

@@ -9,6 +9,7 @@ import org.junit.runner.RunWith;
         features ="src/test/resources",
         glue = "stepdefs",
         plugin = {"pretty"}
+//        tags = "@test"
         )
 public class TestRunner {
 }

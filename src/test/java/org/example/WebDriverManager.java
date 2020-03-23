@@ -1,7 +1,10 @@
 package org.example;
 
+import io.cucumber.java.Scenario;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -15,13 +18,17 @@ public class WebDriverManager {
 
     private static final Logger logger = LogManager.getLogger();
     private String url;
+    private WebDriver driver;
 
     public String getUrl() {
         return url;
     }
 
+    public WebDriver getDriver() {
+        return driver;
+    }
+
     public WebDriver setUpDriver() {
-        WebDriver driver;
         String propertiesPath = "src/test/resources/config.properties";
         logger.info("Properties file located at: {}", propertiesPath);
         Properties properties = new Properties();
@@ -63,5 +70,18 @@ public class WebDriverManager {
         }
 
         return driver;
+    }
+
+    public void loadWebPage() {
+        driver.get(url);
+    }
+
+    public void teardown(Scenario scenario) {
+        if (scenario.isFailed()) {
+            byte[] screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+            String testName = scenario.getName();
+            scenario.embed(screenshot, "image/png", testName);
+        }
+        driver.close();
     }
 }

@@ -1,45 +1,32 @@
 package stepdefs;
 
-import io.cucumber.java.After;
-import io.cucumber.java.Before;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.example.PageObject;
 import org.example.WebDriverManager;
 import org.junit.Assert;
-import org.openqa.selenium.WebDriver;
-import pages.LandingPage;
-import pages.ProductPage;
-import pages.SearchResultsPage;
+import pages.newegg.LandingPage;
+import pages.newegg.ProductPage;
+import pages.newegg.SearchResultsPage;
 
-import java.util.List;
+public class NeweggSteps {
 
-public class StepDefinitions {
-
-    private WebDriver driver;
     private WebDriverManager webDriverManager;
     private PageObject searchResultsOrProductPage;
 
-    @Before
-    public void setUp() {
-        webDriverManager = new WebDriverManager();
-        driver = webDriverManager.setUpDriver();
-    }
-
-    @After
-    public void teardown() {
-        driver.close();
+    public NeweggSteps(WebDriverManager webDriverManager) {
+        this.webDriverManager = webDriverManager;
     }
 
     @Given("User is on landing page")
     public void userIsOnLandingPage() {
-        driver.get(webDriverManager.getUrl());
+        webDriverManager.loadWebPage();
     }
 
     @When("User enters {string} on the global search bar")
     public void userEntersOnTheGlobalSearchBar(String searchTerm) {
-        LandingPage landingPage = new LandingPage(driver);
+        LandingPage landingPage = new LandingPage(webDriverManager.getDriver());
         landingPage.selectCountryOnPopUp();
         searchResultsOrProductPage = landingPage.searchFor(searchTerm);
     }

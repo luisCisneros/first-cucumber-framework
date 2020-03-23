@@ -1,3 +1,4 @@
+@newegg
 Feature: Global Search on Landing Page
 
   Scenario: Search product by keyword
@@ -10,6 +11,7 @@ Feature: Global Search on Landing Page
     When User enters "11G-P4-2281-KR" on the global search bar
     Then At least one result should be shown on Results Page
 
+    @long
   Scenario Outline: Search product by item number
     Given User is on landing page
     When User enters "<itemNumber>" on the global search bar
@@ -21,8 +23,8 @@ Feature: Global Search on Landing Page
     | N82E16820147704 | SAMSUNG 256GB BAR |
     | 9SIA378B540397  | Roku Ultra HD     |
 
-  @test
+    @test
   Scenario: Search for a product that does not exist on the store
     Given User is on landing page
-    When User enters "chilaquiles" on the global search bar
+    When User enters "intel" on the global search bar
     Then No search results message should be displayed

@@ -1,4 +1,4 @@
-package pages;
+package pages.newegg;
 
 import org.example.PageObject;
 import org.openqa.selenium.WebDriver;

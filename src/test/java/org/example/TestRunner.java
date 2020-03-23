@@ -8,8 +8,8 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
         features ="src/test/resources",
         glue = "stepdefs",
-        plugin = {"pretty"}
-//        tags = "@test"
+        plugin = {"pretty", "html:target/cucumber"},
+        tags = "@newegg"
         )
 public class TestRunner {
 }

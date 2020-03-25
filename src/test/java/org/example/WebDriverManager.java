@@ -1,5 +1,8 @@
 package org.example;
 
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.google.common.io.Files;
 import io.cucumber.java.Scenario;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -9,6 +12,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
@@ -19,6 +23,10 @@ public class WebDriverManager {
     private static final Logger logger = LogManager.getLogger();
     private String url;
     private WebDriver driver;
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
 
     public String getUrl() {
         return url;
@@ -42,7 +50,7 @@ public class WebDriverManager {
         String chromeDriverLocation = properties.getProperty("chrome.driver.location");
         String firefoxDriverLocation = properties.getProperty("firefox.driver.location");
         long timeout = Long.parseLong(properties.getProperty("timeout.in.seconds"));
-        url = properties.getProperty("url");
+//        url = properties.getProperty("url");
         boolean isMaximizeWindow = Boolean.parseBoolean(properties.getProperty("maximize.window"));
         logger.debug("All properties assigned to variables");
 
@@ -78,9 +86,25 @@ public class WebDriverManager {
 
     public void teardown(Scenario scenario) {
         if (scenario.isFailed()) {
-            byte[] screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
-            String testName = scenario.getName();
-            scenario.embed(screenshot, "image/png", testName);
+//            byte[] screenshot = ((TakesScreenshot) driver).getScreenshotAs(OutputType.BYTES);
+//            String testName = scenario.getName();
+//            scenario.embed(screenshot, "image/png", testName);
+
+//            ExtentReports extent = new ExtentReports();
+//            ExtentTest test = extent.createTest(scenario.getName());
+//            String screenshotName = scenario.getName().replaceAll(" ", "_"); //TODO Can be improved
+//            File sourcePath = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+//            File destinationPath = new File(System.getProperty("user.dir") + "/target/cucumber/" + screenshotName + ".png");
+//            try {
+//                Files.copy(sourcePath, destinationPath);
+//            } catch (IOException e) {
+//                logger.error("[Files.copy]" + e.getMessage());
+//            }
+//            try {
+//                test.addScreenCaptureFromPath(destinationPath.toString());
+//            } catch (IOException e) {
+//                logger.error("[test.add]" + e.getMessage());
+//            }
         }
         driver.close();
     }

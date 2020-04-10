@@ -1,15 +1,11 @@
 package pages.expedia;
 
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 import org.example.PageObject;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 
 public class LandingPage extends PageObject {
-
-    private static final Logger logger = LogManager.getLogger();
 
     @FindBy(id = "tab-flight-tab-hp")
     private WebElement flights;

@@ -1,7 +1,6 @@
 package stepdefs;
 
 import io.cucumber.java.en.And;
-import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
 import org.example.WebDriverManager;
@@ -19,11 +18,6 @@ public class ExpediaSteps {
 
     public ExpediaSteps(WebDriverManager webDriverManager) {
         this.webDriverManager = webDriverManager;
-    }
-
-    @Given("user is on expedia landing page")
-    public void userIsOnExpediaLandingPage() {
-        webDriverManager.loadWebPage();
     }
 
     @When("user selects single flight")

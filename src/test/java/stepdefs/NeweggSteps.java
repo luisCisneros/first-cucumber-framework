@@ -19,9 +19,9 @@ public class NeweggSteps {
         this.webDriverManager = webDriverManager;
     }
 
-    @Given("user is on landing page")
-    public void userIsOnLandingPage() {
-        webDriverManager.loadWebPage();
+    @Given("user is on {string} landing page")
+    public void userIsOnLandingPage(String website) {
+        webDriverManager.loadWebPage(website);
     }
 
     @When("user enters {string} on the global search bar")
@@ -44,7 +44,7 @@ public class NeweggSteps {
         Assert.assertTrue(productPage.getProductName().contains(productName));
     }
 
-    @Then("no search results message should be displayed")
+    @Then("no search results should be displayed")
     public void noSearchResultsMessageShouldBeDisplayed() {
         SearchResultsPage searchResultsPage = (SearchResultsPage) searchResultsOrProductPage;
         Assert.assertTrue(searchResultsPage.getNoSearchResultsErrorMessage().isDisplayed());

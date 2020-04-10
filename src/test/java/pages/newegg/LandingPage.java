@@ -28,7 +28,9 @@ public class LandingPage extends PageObject {
         searchBox.sendKeys(searchTerm);
         logger.debug("Search term used: {}", searchTerm);
         searchBox.sendKeys(Keys.ENTER);
+        // Matches if the search term received is an item number, and returns the Product Page directly instead of Search Results Page.
         if (searchTerm.matches("^[A-Z0-9]{14,15}$")) {
+            logger.debug("Search term {} identified as an item number. Returning Product Page", searchTerm);
             return new ProductPage(driver);
         }
         return new SearchResultsPage(driver);

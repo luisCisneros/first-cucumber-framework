@@ -1,4 +1,4 @@
-package pages;
+package pages.newegg;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -24,27 +24,27 @@ public class LandingPage extends PageObject {
         return selectCountryPopUp;
     }
 
-//    public SearchResultsPage searchFor(String searchTerm) {
-//        searchBox.sendKeys(searchTerm);
-//        logger.debug("Search term used: {}", searchTerm);
-//        searchBox.sendKeys(Keys.ENTER);
-//        return new SearchResultsPage(driver);
-//    }
-
     public PageObject searchFor(String searchTerm) {
         searchBox.sendKeys(searchTerm);
         logger.debug("Search term used: {}", searchTerm);
         searchBox.sendKeys(Keys.ENTER);
+        // Matches if the search term received is an item number, and returns the Product Page directly instead of Search Results Page.
         if (searchTerm.matches("^[A-Z0-9]{14,15}$")) {
+            logger.debug("Search term {} identified as an item number. Returning Product Page", searchTerm);
             return new ProductPage(driver);
         }
         return new SearchResultsPage(driver);
     }
 
     public void selectCountryOnPopUp() {
-        WebElement stayAtButton = selectCountryPopUp.findElement(By.xpath("//button[@class='btn forchangecounrtypopup'][contains(text(),'Stay at United States')]"));
-        JavascriptExecutor executor = (JavascriptExecutor) driver;
-        executor.executeScript("arguments[0].click();", stayAtButton);
-        logger.debug("Clicked on Stay at button");
+        if (selectCountryPopUp.isDisplayed()) {
+            logger.debug("Select country popup is displayed");
+            WebElement stayAtButton = selectCountryPopUp.findElement(By.xpath("//button[@class='btn forchangecounrtypopup'][contains(text(),'Stay at United States')]"));
+            JavascriptExecutor executor = (JavascriptExecutor) driver;
+            executor.executeScript("arguments[0].click();", stayAtButton);
+            logger.debug("Clicked on Stay at button on popup");
+            return;
+        }
+        logger.debug("Select country popup is not displayed");
     }
 }
